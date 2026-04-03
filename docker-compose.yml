@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  titan-bulgaria:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: titan-bulgaria
+    ports:
+      - "5900:5900"   # VNC - connect with VNC viewer to localhost:5900
+    volumes:
+      - titan-data:/data/titan          # persistent radar data
+      - ./projects/bulgaria/projDir:/opt/titan/projDir  # project config (live-editable)
+    environment:
+      - DISPLAY=:1
+      - PROJ_DIR=/opt/titan/projDir
+      - DATA_DIR=/data/titan
+      - LROSE_INSTALL_DIR=/opt/lrose
+    restart: unless-stopped
+    shm_size: '256mb'
+
+volumes:
+  titan-data:
+    driver: local

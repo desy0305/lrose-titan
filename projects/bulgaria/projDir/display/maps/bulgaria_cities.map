@@ -1,0 +1,24 @@
+# Bulgaria major cities map file
+# Format: LABEL lat lon
+# Coordinates in decimal degrees
+
+LABEL  Sofia         42.698  23.322
+LABEL  Plovdiv       42.150  24.750
+LABEL  Varna         43.204  27.910
+LABEL  Burgas        42.504  27.462
+LABEL  Ruse          43.848  25.953
+LABEL  Stara_Zagora  42.426  25.635
+LABEL  Pleven        43.417  24.617
+LABEL  Sliven        42.683  26.317
+LABEL  Dobrich       43.567  27.833
+LABEL  Shumen        43.271  26.922
+LABEL  Pernik        42.600  23.033
+LABEL  Haskovo       41.934  25.555
+LABEL  Yambol        42.483  26.517
+LABEL  Pazardzhik    42.200  24.333
+LABEL  Blagoevgrad   42.017  23.100
+LABEL  Vratsa        43.200  23.550
+LABEL  Gabrovo       42.867  25.317
+LABEL  Vidin         43.983  22.883
+LABEL  Montana       43.408  23.225
+LABEL  Kardzhali     41.650  25.367

@@ -1,0 +1,34 @@
+/**********************************************************************
+ * RadxConvert params for Bulgaria radars
+ * Converts ODIM HDF5 input to CfRadial format
+ * One instance per radar, radar_name set via env var
+ **********************************************************************/
+
+debug = DEBUG_OFF;
+instance = "$(radar_name)";
+
+// Input: ODIM HDF5 files dropped into raw/radar/<radar_name>/
+input_dir = "$(DATA_DIR)/raw/radar/$(radar_name)";
+mode = REALTIME;
+max_realtime_data_age_secs = 600;
+latest_data_info_avail = FALSE;
+search_recursively = TRUE;
+max_recursion_depth = 3;
+wait_between_checks = 5;
+file_quiescence = 5;
+
+// ODIM HDF5 is auto-detected by RadxConvert
+search_ext = "";
+
+// Output: CfRadial in cfradial/<radar_name>/
+output_dir = "$(DATA_DIR)/cfradial/$(radar_name)";
+output_format = CFRADIAL;
+netcdf_style = NETCDF4;
+
+// Keep all fields from the HDF5 file
+select_fields = FALSE;
+
+// Preserve sweep structure
+preserve_sweeps = FALSE;
+remove_rays_with_antenna_transitions = TRUE;
+transition_nrays_margin = 2;

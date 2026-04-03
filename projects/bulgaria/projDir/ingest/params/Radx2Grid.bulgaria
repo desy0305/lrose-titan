@@ -1,0 +1,74 @@
+/**********************************************************************
+ * Radx2Grid params for Bulgaria radars
+ * Converts CfRadial polar data to Cartesian MDV grid
+ * One instance per radar, radar_name set via env var
+ **********************************************************************/
+
+debug = DEBUG_OFF;
+instance = "$(radar_name)";
+
+// Input: CfRadial from RadxConvert
+input_dir = "$(DATA_DIR)/cfradial/$(radar_name)";
+mode = REALTIME;
+max_realtime_data_age_secs = 600;
+
+// Output: MDV Cartesian per-radar
+output_dir = "$(DATA_DIR)/mdv/radarCart/$(radar_name)";
+output_format = MDV;
+
+// Interpolation: standard 3D Cartesian
+interp_mode = INTERP_MODE_CART;
+use_nearest_neighbor = FALSE;
+min_nvalid_for_interp = 3;
+
+// Vertical grid: 1.0 to 15.5 km, 0.5 km spacing (30 levels)
+grid_z_geom = {
+    nz = 30,
+    minz = $(CART_GRID_START_HT),
+    dz = 0.5
+};
+
+// Horizontal grid: 460x460 km centered on radar, 1 km resolution
+grid_xy_geom = {
+    nx = 460,
+    ny = 460,
+    minx = -229.5,
+    miny = -229.5,
+    dx = 1.0,
+    dy = 1.0
+};
+
+// Center grid on each radar's own location
+center_grid_on_radar = TRUE;
+grid_projection = PROJ_FLAT;
+
+// Fields to process
+select_fields = TRUE;
+selected_fields = {
+  { input_name = "DBZ", process_this_field = TRUE },
+  { input_name = "DBZH", process_this_field = TRUE },
+  { input_name = "VRAD", process_this_field = TRUE },
+  { input_name = "WRAD", process_this_field = FALSE }
+};
+
+// Rename ODIM field names to standard TITAN names
+rename_fields = TRUE;
+renamed_fields = {
+  { input_name = "DBZH", output_name = "DBZ" },
+  { input_name = "VRAD", output_name = "VEL" }
+};
+
+// Add range field (needed for MERGE_CLOSEST in mosaic)
+output_range_field = TRUE;
+range_field_name = "range";
+
+// DBZ transform for better interpolation
+transform_fields_for_interpolation = TRUE;
+transform_fields = {
+  {
+    input_name = "DBZ",
+    output_name = "DBZ",
+    output_units = "dBZ",
+    transform = TRANSFORM_DB_TO_LINEAR_AND_BACK
+  }
+};

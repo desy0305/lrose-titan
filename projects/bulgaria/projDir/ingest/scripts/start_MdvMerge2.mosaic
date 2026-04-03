@@ -1,0 +1,2 @@
+#!/bin/tcsh
+MdvMerge2 -params $PROJ_DIR/ingest/params/MdvMerge2.mosaic -instance mosaic &

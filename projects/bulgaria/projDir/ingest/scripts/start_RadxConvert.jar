@@ -1,0 +1,4 @@
+#!/bin/tcsh
+setenv radar_name jar
+setenv RADAR_NAME JAR
+RadxConvert -params $PROJ_DIR/ingest/params/RadxConvert.bulgaria -instance jar &

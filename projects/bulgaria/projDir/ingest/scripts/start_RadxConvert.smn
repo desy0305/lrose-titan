@@ -1,0 +1,4 @@
+#!/bin/tcsh
+setenv radar_name smn
+setenv RADAR_NAME SMN
+RadxConvert -params $PROJ_DIR/ingest/params/RadxConvert.bulgaria -instance smn &

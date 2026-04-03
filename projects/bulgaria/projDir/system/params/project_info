@@ -1,0 +1,79 @@
+#############################################
+# Bulgaria TITAN project - multi-radar
+# 7 radars operated by NIMH / Hail Suppression Agency
+# All MRL-5 IRIS/Vaisala, S-band, 4-min scan cycle
+#############################################
+
+# PROJECT
+setenv PROJECT_NAME               "TITAN-BULGARIA"
+setenv project                    "titan-bulgaria"
+
+# Host where the data is stored
+setenv DATA_HOST                  localhost
+
+# Composite domain center (geographic center of Bulgaria)
+setenv DOMAIN_LAT                 42.90
+setenv DOMAIN_LON                 25.30
+
+# -------------------------------------------------------
+# RADAR SITES
+# -------------------------------------------------------
+# JAR - Yarlovo (Sofia)
+setenv JAR_LAT                    42.47
+setenv JAR_LON                    23.58
+setenv JAR_ALT_KM                 1.56
+
+# BRD - Bardarski Geran (Vratsa)
+setenv BRD_LAT                    43.549
+setenv BRD_LON                    23.952
+setenv BRD_ALT_KM                 0.16
+
+# DCE - Dolno Tserovene (Montana)
+setenv DCE_LAT                    43.592
+setenv DCE_LON                    23.246
+setenv DCE_ALT_KM                 0.14
+
+# GCD - Golyam Chardak (Plovdiv)
+setenv GCD_LAT                    42.17
+setenv GCD_LON                    24.78
+setenv GCD_ALT_KM                 0.25
+
+# POP - Popovitsa (Plovdiv)
+setenv POP_LAT                    42.136
+setenv POP_LON                    25.056
+setenv POP_ALT_KM                 0.15
+
+# SMN - Shumen
+setenv SMN_LAT                    43.271
+setenv SMN_LON                    26.922
+setenv SMN_ALT_KM                 0.18
+
+# STS - Staro Selo (Sliven)
+setenv STS_LAT                    42.583
+setenv STS_LON                    26.150
+setenv STS_ALT_KM                 0.20
+
+# -------------------------------------------------------
+# SHARED SETTINGS
+# -------------------------------------------------------
+# time between volumes (secs) - 4 min scan cycle
+setenv SCAN_DELTA_T               240
+
+# Lowest cappi for cart grid (km)
+setenv CART_GRID_START_HT         1.0
+
+# Start height for Rview
+setenv RVIEW_START_HT             2.0
+
+# Map config file for display
+setenv RVIEW_MAP_CONF_FILE        bulgaria.conf
+
+# Precip estimation (continental Europe Z-R)
+setenv ZR_COEFF                   200.0
+setenv ZR_EXPON                   1.6
+setenv HAIL_DBZ_THRESHOLD         53
+
+# Directory for mosaic cart radar data (TITAN reads from here)
+setenv RADAR_CART_DIR             mdv/radarCart/mosaic
+
+#############################################

@@ -1,0 +1,4 @@
+#!/bin/tcsh
+setenv radar_name dce
+setenv RADAR_NAME DCE
+Radx2Grid -params $PROJ_DIR/ingest/params/Radx2Grid.bulgaria -instance dce &

@@ -1,0 +1,125 @@
+/**********************************************************************
+ * MdvMerge2 - Bulgaria 7-radar mosaic
+ * Merges per-radar Cartesian MDV grids into a national composite
+ **********************************************************************/
+
+debug = DEBUG_NORM;
+instance = "mosaic";
+
+mode = REALTIME;
+trigger = TIME_TRIGGER;
+time_trigger_interval = 240;       // trigger every 4 min (scan cycle)
+time_trigger_offset = 30;          // 30s after the scan boundary
+time_trigger_margin = 300;
+past_only = TRUE;
+min_time_between_file_triggers = 120;
+min_number_updated_urls = 1;       // merge even if some radars are offline
+max_realtime_valid_age = 750;
+
+// Merge DBZ using MAX (best reflectivity from any radar)
+// Merge VEL using CLOSEST (use nearest radar for velocity)
+merge_fields = {
+  {
+    name = "DBZ",
+    merge_method = MERGE_MAX,
+    merge_encoding = FLOAT32,
+    merge_scale = 0.5,
+    merge_bias = -32,
+    output_encoding = INT16
+  },
+  {
+    name = "VEL",
+    merge_method = MERGE_CLOSEST,
+    merge_encoding = FLOAT32,
+    merge_scale = 0.5,
+    merge_bias = -32,
+    output_encoding = INT16
+  },
+  {
+    name = "range",
+    merge_method = MERGE_CLOSEST,
+    merge_encoding = FLOAT32,
+    merge_scale = 0.5,
+    merge_bias = -32,
+    output_encoding = INT16
+  }
+};
+
+range_field_name = "range";
+
+// -------------------------------------------------------
+// Input: one URL per radar (all 7 Bulgarian radars)
+// is_required = FALSE so mosaic runs even if a radar is down
+// -------------------------------------------------------
+input_urls = {
+  {
+    url = "mdvp:://localhost::mdv/radarCart/jar",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/brd",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/dce",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/gcd",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/pop",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/smn",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  },
+  {
+    url = "mdvp:://localhost::mdv/radarCart/sts",
+    field_names = "",
+    is_required = FALSE,
+    must_update = FALSE
+  }
+};
+
+// -------------------------------------------------------
+// Output: national mosaic in lat/lon projection
+// Covers Bulgaria: 41.2-44.2°N, 22.3-28.6°E
+// 0.01° resolution (~1 km)
+// -------------------------------------------------------
+output_url = "mdvp:://localhost::mdv/radarCart/mosaic";
+
+output_projection = OUTPUT_PROJ_LATLON;
+output_origin = { lat = 42.70, lon = 25.45 };
+
+output_grid = {
+    nx = 630,    // 22.3 to 28.6 E at 0.01 deg
+    ny = 300,    // 41.2 to 44.2 N at 0.01 deg
+    nz = 30,
+    minx = 22.30,
+    miny = 41.20,
+    minz = $(CART_GRID_START_HT),
+    dx = 0.01,
+    dy = 0.01,
+    dz = 0.5
+};
+
+output_compression = COMPRESSION_ZLIB;
+output_data_set_name = "BULGARIA-MOSAIC";
+output_data_set_source = "JAR,BRD,DCE,GCD,POP,SMN,STS";
+output_timestamp_correction = -120;
+write_ldata = TRUE;

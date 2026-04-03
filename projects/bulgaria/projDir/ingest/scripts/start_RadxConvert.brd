@@ -1,0 +1,4 @@
+#!/bin/tcsh
+setenv radar_name brd
+setenv RADAR_NAME BRD
+RadxConvert -params $PROJ_DIR/ingest/params/RadxConvert.bulgaria -instance brd &
