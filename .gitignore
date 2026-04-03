@@ -15,3 +15,16 @@ projects/templates/nexrad_single/projDir/logs
 projects/templates/nexrad_multiple/projDir/data
 projects/templates/nexrad_multiple/projDir/logs
 
+
+# Radar data - ignore actual data, keep folder structure
+data/titan/raw/**
+data/titan/cfradial/**
+data/titan/mdv/**
+data/titan/spdb/**
+data/titan/titan/**
+data/titan/logs/**
+!data/titan/**/.gitkeep
+!data/titan/**/README.txt
+
+# env overrides
+.env.local

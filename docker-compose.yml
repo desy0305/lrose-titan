@@ -9,8 +9,11 @@ services:
     ports:
       - "5900:5900"   # VNC - connect with VNC viewer to localhost:5900
     volumes:
-      - titan-data:/data/titan          # persistent radar data
-      - ./projects/bulgaria/projDir:/opt/titan/projDir  # project config (live-editable)
+      # Bind mount: drop radar HDF5 files here from Windows Explorer
+      # Folder will be created automatically on first run
+      - ${TITAN_DATA_DIR:-./data/titan}:/data/titan
+      # Project config - live editable from your editor
+      - ./projects/bulgaria/projDir:/opt/titan/projDir
     environment:
       - DISPLAY=:1
       - PROJ_DIR=/opt/titan/projDir
@@ -18,7 +21,3 @@ services:
       - LROSE_INSTALL_DIR=/opt/lrose
     restart: unless-stopped
     shm_size: '256mb'
-
-volumes:
-  titan-data:
-    driver: local
